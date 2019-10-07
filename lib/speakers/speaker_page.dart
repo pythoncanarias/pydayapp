@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pyday/agenda/session_detail.dart';
@@ -76,6 +74,13 @@ class SpeakerPage extends StatelessWidget {
     }
   }
 
+  Color setLevelColor(Speaker speaker) {
+    if (speaker.sessionLevel == "Intermedio") {
+      return Tools.multiColors[1];
+    }
+    return Tools.multiColors[3];
+  }
+
   @override
   Widget build(BuildContext context) {
     var _homeBloc = HomeBloc();
@@ -135,7 +140,11 @@ class SpeakerPage extends StatelessWidget {
                                   width:
                                       MediaQuery.of(context).size.width * 0.2,
                                   height: 5,
-                                  color: Tools.multiColors[Random().nextInt(4)],
+                                  color: setLevelColor(speakers[i]),
+                                ),
+                                Text(
+                                  speakers[i].sessionLevel,
+                                  style: Theme.of(context).textTheme.subtitle,
                                 ),
                               ],
                             ),

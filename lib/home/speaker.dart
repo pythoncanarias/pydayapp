@@ -38,6 +38,7 @@ class Speaker {
   String telegramUrl;
   String sessionTitle;
   String sessionId;
+  String sessionLevel;
 
   Speaker(
       {this.speakerName,
@@ -55,7 +56,8 @@ class Speaker {
       this.githubUrl,
       this.telegramUrl,
       this.sessionTitle,
-      this.sessionId});
+      this.sessionId,
+      this.sessionLevel});
 
   Speaker.fromJson(Map<String, dynamic> json) {
     speakerName = json['speaker_name'];
@@ -75,6 +77,7 @@ class Speaker {
     telegramUrl = json['telegram_url'];
     sessionTitle = json['session_title'];
     sessionId = json['session_id'];
+    sessionLevel = json['session_level'];
   }
 
   Map<String, dynamic> toJson() {
@@ -94,6 +97,7 @@ class Speaker {
     data['github_url'] = this.githubUrl;
     data['speaker_title'] = this.sessionTitle;
     data['session_id'] = this.sessionId;
+    data['session_level'] = this.sessionLevel;
     return data;
   }
 }
