@@ -8,7 +8,9 @@ class SessionsData {
   SessionsData.fromJson(List<dynamic> json) {
       sessions = new List<Session>();
       json.forEach((v) {
-        sessions.add(Session.fromJson(v));
+        if (v["name"] != "Descanso" && v["speakers"][0]['name'] != "Alex" && v["speakers"][0]['surname'] != "Samarín") {
+          sessions.add(Session.fromJson(v));
+        }
       });
   }
 }
@@ -61,7 +63,17 @@ class Session {
       speakerImage = json["speakers"][0]['photo'];
       speakerId = json["speakers"][0]['speaker_id'];
       track = json['track'];
-      speaker = {};
+      speaker = Speaker(
+          speakerName: speakerName,
+          speakerDesc: json["bio"],
+          speakerId: speakerId,
+          speakerImage: speakerImage,
+          sessionDesc: sessionDesc,
+          sessionId: sessionId,
+          sessionLevel: "Intermedio",
+          sessionStartTime: sessionStartTime,
+          sessionTitle: sessionTitle,
+          sessionTotalTime: "50 mins" );
     }
   }
 

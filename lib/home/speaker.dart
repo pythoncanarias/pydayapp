@@ -25,7 +25,6 @@ class Speaker {
   String speakerName;
   String speakerDesc;
   String speakerImage;
-  String speakerInfo;
   int speakerId;
   String sessionStartTime;
   String sessionTotalTime;
@@ -44,7 +43,6 @@ class Speaker {
       {this.speakerName,
       this.speakerDesc,
       this.speakerImage,
-      this.speakerInfo,
       this.speakerId,
       this.sessionStartTime,
       this.sessionTotalTime,
@@ -83,7 +81,6 @@ class Speaker {
     data['speaker_name'] = this.speakerName;
     data['speaker_desc'] = this.speakerDesc;
     data['speaker_image'] = this.speakerImage;
-    data['speaker_info'] = this.speakerInfo;
     data['speaker_id'] = this.speakerId;
     data['session_start_time'] = this.sessionStartTime;
     data['session_total_time'] = this.sessionTotalTime;
