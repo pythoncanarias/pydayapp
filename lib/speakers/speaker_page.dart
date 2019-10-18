@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pyday/agenda/session_detail.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_pyday/home/home_bloc.dart';
 import 'package:flutter_pyday/home/index.dart';
 import 'package:flutter_pyday/home/speaker.dart';
 import 'package:flutter_pyday/universal/dev_scaffold.dart';
+import 'package:flutter_pyday/utils/pyday.dart';
 import 'package:flutter_pyday/utils/tools.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -77,8 +79,10 @@ class SpeakerPage extends StatelessWidget {
   Color setLevelColor(Speaker speaker) {
     if (speaker.sessionLevel == "Intermedio") {
       return Tools.multiColors[1];
+    } else if (speaker.sessionLevel == 'Básico') {
+      return Tools.multiColors[3];
     }
-    return Tools.multiColors[3];
+    return Tools.multiColors[2];
   }
 
   @override
@@ -113,7 +117,10 @@ class SpeakerPage extends StatelessWidget {
                           height: MediaQuery.of(context).size.height * 0.2,
                           width: MediaQuery.of(context).size.width * 0.3,
                         ),
-                        child: Image.asset(speakers[i].speakerImage),
+                        child: CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          imageUrl: "${Pyday.baseUrl}${speakers[i].speakerImage}",
+                        ),
                       ),
                       SizedBox(
                         width: 20,

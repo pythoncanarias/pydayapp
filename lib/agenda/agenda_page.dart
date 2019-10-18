@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pyday/agenda/cloud_screen.dart';
 import 'package:flutter_pyday/agenda/mobile_screen.dart';
-import 'package:flutter_pyday/agenda/web_screen.dart';
 import 'package:flutter_pyday/home/index.dart';
+import 'package:flutter_pyday/home/track.dart';
 import 'package:flutter_pyday/universal/dev_scaffold.dart';
 import 'package:flutter_pyday/utils/tools.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,8 +12,10 @@ class AgendaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _homeBloc = HomeBloc();
+    var state = _homeBloc.currentState as InHomeState;
+    var tracks = state.sessionsData.tracks;
     return DefaultTabController(
-      length: 3,
+      length: tracks.length,
       child: DevScaffold(
         title: Text("Agenda"),
         tabBar: TabBar(
@@ -24,42 +25,22 @@ class AgendaPage extends StatelessWidget {
             fontSize: 12,
           ),
           isScrollable: false,
-          tabs: <Widget>[
-            Tab(
-              child: Text("Cloud"),
+          tabs: tracks.map((track) {
+            return Tab(
+              child: Text(track.name),
               icon: Icon(
                 FontAwesomeIcons.cloud,
                 size: 12,
               ),
-            ),
-            Tab(
-              child: Text("Mobile"),
-              icon: Icon(
-                FontAwesomeIcons.mobile,
-                size: 12,
-              ),
-            ),
-            Tab(
-              child: Text("Web & More"),
-              icon: Icon(
-                FontAwesomeIcons.chrome,
-                size: 12,
-              ),
-            )
-          ],
+            );
+          }).toList(),
         ),
         body: TabBarView(
-          children: <Widget>[
-            CloudScreen(
-              homeBloc: _homeBloc,
-            ),
-            MobileScreen(
-              homeBloc: _homeBloc,
-            ),
-            WebScreen(
-              homeBloc: _homeBloc,
-            ),
-          ],
+          children: tracks.map((track) {
+            return MobileScreen(
+              track: track,
+            );
+          }).toList(),
         ),
       ),
     );

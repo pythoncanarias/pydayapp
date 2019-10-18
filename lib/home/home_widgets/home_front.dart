@@ -72,7 +72,7 @@ class HomeFront extends StatelessWidget {
             onPressed: () => Navigator.pushNamed(context, TeamPage.routeName),
           ),
           RaisedButton(
-            child: Text("FAQ"),
+            child: Text("Asistente"),
             shape: StadiumBorder(),
             color: Colors.brown,
             colorBrightness: Brightness.dark,
@@ -120,7 +120,7 @@ class HomeFront extends StatelessWidget {
                 Navigator.pushNamed(context, SponsorPage.routeName),
           ),
           ActionCard(
-            icon: Icons.question_answer,
+            icon: FontAwesomeIcons.robot,
             color: Colors.brown,
             title: Pyday.faq_text,
             onPressed: () => Navigator.pushNamed(context, FaqPage.routeName),

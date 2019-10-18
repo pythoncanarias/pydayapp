@@ -1,35 +1,31 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pyday/universal/dev_scaffold.dart';
+import 'package:flutter_pyday/utils/pyday.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import '../home/home_bloc.dart';
+import '../home/home_state.dart';
 
 class SponsorPage extends StatelessWidget {
   static const String routeName = "/sponsor";
 
   @override
   Widget build(BuildContext context) {
-    // var _homeBloc = HomeBloc();
+    var _homeBloc = HomeBloc();
+    var state = _homeBloc.currentState as InHomeState;
+    var sponsors = state.sponsorsData.sponsors;
     return DevScaffold(
       body: ListView(
-        children: <Widget>[
-          SponsorImage(
+        children: sponsors.map((sponsor) {
+          if (sponsor.logo.endsWith("svg")) {
+            return new SvgPicture.network("${Pyday.baseUrl}${sponsor.logo}");
+          }
+          return SponsorImage(
             imgUrl:
-                "https://intelygenz.com/wp-content/uploads/2019/05/OpenGraphs_WEB_Core.png",
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          SponsorImage(
-            imgUrl:
-                "https://www.wtmgrancanaria.com/wp-content/uploads/logo_edosoft.png",
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          SponsorImage(
-            imgUrl:
-                "https://cdn-images-1.medium.com/max/1200/1*nmg8j93sd6J7adrjt0gJGg.jpeg",
-          ),
-        ],
+            "${Pyday.baseUrl}${sponsor.logo}",
+          );
+        }).toList(),
       ),
       title: Text("Sponsors"),
     );

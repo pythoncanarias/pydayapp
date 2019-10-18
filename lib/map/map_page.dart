@@ -4,6 +4,9 @@ import 'package:flutter_pyday/config/config_bloc.dart';
 import 'package:flutter_pyday/universal/dev_scaffold.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../home/home_bloc.dart';
+import '../home/home_state.dart';
+
 class MapPage extends StatefulWidget {
   static const String routeName = "/map";
   @override
@@ -13,19 +16,13 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   GoogleMapController _controller;
   bool isMapCreated = false;
-  static final LatLng myLocation = LatLng(28.1059897, -15.448971);
 
   @override
   void initState() {
     super.initState();
   }
 
-  final CameraPosition _kGooglePlex = CameraPosition(
-    target: myLocation,
-    zoom: 14.4746,
-  );
-
-  Set<Marker> _createMarker() {
+  Set<Marker> _createMarker(LatLng myLocation) {
     return <Marker>[
       Marker(
           markerId: MarkerId("marker_1"),
@@ -54,6 +51,13 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
+    var _homeBloc = HomeBloc();
+    var state = _homeBloc.currentState as InHomeState;
+    var location = state.locationData.location;
+    final CameraPosition _kGooglePlex = CameraPosition(
+      target: LatLng(location.lat, location.long),
+      zoom: 14.4746,
+    );
     if (isMapCreated) {
       changeMapMode();
     }
@@ -68,7 +72,7 @@ class _MapPageState extends State<MapPage> {
               zoomGesturesEnabled: true,
               myLocationButtonEnabled: true,
               myLocationEnabled: true,
-              markers: _createMarker(),
+              markers: _createMarker(LatLng(location.lat, location.long)),
               initialCameraPosition: _kGooglePlex,
               onMapCreated: (GoogleMapController controller) {
                 _controller = controller;
@@ -83,14 +87,14 @@ class _MapPageState extends State<MapPage> {
                   child: RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                        text: "Infecar\n",
+                        text: "${location.name}\n",
                         style: Theme.of(context).textTheme.title.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
                         children: [
                           TextSpan(
                               text:
-                                  "Av. de la Feria, 1,Las Palmas de Gran Canaria",
+                                  location.address,
                               style: Theme.of(context).textTheme.subtitle,
                               children: []),
                         ]),
