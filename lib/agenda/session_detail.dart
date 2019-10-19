@@ -89,7 +89,7 @@ class SessionDetail extends StatelessWidget {
             children: <Widget>[
               Center(
                 child: Hero(
-                  tag: session.speakerImage,
+                  tag: session.speakerId,
                   child: CircleAvatar(
                     radius: 100.0,
                     backgroundImage: CachedNetworkImageProvider("${Pyday.baseUrl}${session.speakerImage}"),

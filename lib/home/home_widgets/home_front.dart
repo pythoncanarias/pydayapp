@@ -37,57 +37,6 @@ class HomeFront extends StatelessWidget {
     }
   }
 
-  Widget actions(context) => Wrap(
-        alignment: WrapAlignment.center,
-        spacing: 10.0,
-        children: <Widget>[
-          RaisedButton(
-            child: Text("Agenda"),
-            shape: StadiumBorder(),
-            color: Colors.red,
-            colorBrightness: Brightness.dark,
-            onPressed: () => Navigator.pushNamed(context, AgendaPage.routeName),
-          ),
-          RaisedButton(
-            child: Text("Speakers"),
-            shape: StadiumBorder(),
-            color: Colors.green,
-            colorBrightness: Brightness.dark,
-            onPressed: () =>
-                Navigator.pushNamed(context, SpeakerPage.routeName),
-          ),
-          RaisedButton(
-            child: Text("Sponsors"),
-            shape: StadiumBorder(),
-            color: Colors.orange,
-            colorBrightness: Brightness.dark,
-            onPressed: () =>
-                Navigator.pushNamed(context, SponsorPage.routeName),
-          ),
-          RaisedButton(
-            child: Text("Team"),
-            shape: StadiumBorder(),
-            color: Colors.purple,
-            colorBrightness: Brightness.dark,
-            onPressed: () => Navigator.pushNamed(context, TeamPage.routeName),
-          ),
-          RaisedButton(
-            child: Text("Asistente"),
-            shape: StadiumBorder(),
-            color: Colors.brown,
-            colorBrightness: Brightness.dark,
-            onPressed: () => Navigator.pushNamed(context, FaqPage.routeName),
-          ),
-          RaisedButton(
-            child: Text("Locate Us"),
-            shape: StadiumBorder(),
-            color: Colors.blue,
-            colorBrightness: Brightness.dark,
-            onPressed: () => Navigator.pushNamed(context, MapPage.routeName),
-          ),
-        ],
-      );
-
   Widget newActions(context) => Wrap(
         alignment: WrapAlignment.center,
         spacing: 20.0,
@@ -105,12 +54,6 @@ class HomeFront extends StatelessWidget {
             title: Pyday.speakers_text,
             onPressed: () =>
                 Navigator.pushNamed(context, SpeakerPage.routeName),
-          ),
-          ActionCard(
-            icon: Icons.people,
-            color: Colors.amber,
-            title: Pyday.team_text,
-            onPressed: () => Navigator.pushNamed(context, TeamPage.routeName),
           ),
           ActionCard(
             icon: Icons.attach_money,

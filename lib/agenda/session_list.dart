@@ -51,7 +51,7 @@ class SessionList extends StatelessWidget {
               ),
             ),
             leading: Hero(
-              tag: allSessions[i].speakerImage,
+              tag: allSessions[i].speakerId,
               child: CircleAvatar(
                 radius: 30,
                 backgroundImage: CachedNetworkImageProvider("${Pyday.baseUrl}${allSessions[i].speakerImage}"),
