@@ -12,11 +12,11 @@ class Pyday {
   static bool isDebugMode = false;
 
   // * Url related
-  static String baseUrl = "https://storage.googleapis.com/";
+  static String baseUrl = "https://pythoncanarias.es";
 
   static checkDebug() {
     assert(() {
-      baseUrl = "https://storage.googleapis.com/";
+      baseUrl = "https://pythoncanarias.es";
       isDebugMode = true;
       return true;
     }());
@@ -32,8 +32,6 @@ class Pyday {
   //* Images
   static const String home_img = "assets/images/banne_light.png";
   static const String banner_light = "assets/images/pyday2019.jpg";
-  static const String banner_dark = "assets/images/banner_dark.png";
-
   //*  Texts
   static const String welcomeText = "Bienvenidos a PyDayGC 2019!";
   static const String descText =
@@ -60,7 +58,7 @@ class Pyday {
   static const String speakers_text = "Ponentes";
   static const String team_text = "Staff";
   static const String sponsor_text = "Sponsors";
-  static const String faq_text = "FAQ";
+  static const String faq_text = "Asistente";
   static const String map_text = "Ubicación";
 
   //* Preferences
@@ -72,8 +70,4 @@ class Pyday {
   static const String photoPref = "photoPref";
   static const String isAdminPref = "isAdminPref";
   static const String darkModePref = "darkModePref";
-
-  //* JSON URLS
-  static const String speakersAssetJson = "assets/json/speakers.json";
-  static const String teamsAssetJson = "assets/json/staff.json";
 }

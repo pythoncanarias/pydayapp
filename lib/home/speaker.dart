@@ -4,9 +4,9 @@ class SpeakersData {
   SpeakersData({this.speakers});
 
   SpeakersData.fromJson(Map<String, dynamic> json) {
-    if (json['speakers'] != null) {
+    if (json['result'] != null) {
       speakers = new List<Speaker>();
-      json['speakers'].forEach((v) {
+      json['result'].forEach((v) {
         speakers.add(Speaker.fromJson(v));
       });
     }
@@ -25,8 +25,7 @@ class Speaker {
   String speakerName;
   String speakerDesc;
   String speakerImage;
-  String speakerInfo;
-  String speakerId;
+  int speakerId;
   String sessionStartTime;
   String sessionTotalTime;
   String sessionDesc;
@@ -37,14 +36,13 @@ class Speaker {
   String githubUrl;
   String telegramUrl;
   String sessionTitle;
-  String sessionId;
+  int sessionId;
   String sessionLevel;
 
   Speaker(
       {this.speakerName,
       this.speakerDesc,
       this.speakerImage,
-      this.speakerInfo,
       this.speakerId,
       this.sessionStartTime,
       this.sessionTotalTime,
@@ -60,24 +58,22 @@ class Speaker {
       this.sessionLevel});
 
   Speaker.fromJson(Map<String, dynamic> json) {
-    speakerName = json['speaker_name'];
-    speakerDesc = json['speaker_desc'];
-    speakerImage = json['speaker_image'];
-    speakerInfo = json['speaker_info'];
+    speakerName = "${json['name']} ${json['surname']}";
+    speakerDesc = json['bio'];
+    speakerImage = json['photo'];
     speakerId = json['speaker_id'];
-    sessionId = json['session_id'];
-    sessionStartTime = json['session_start_time'];
-    sessionTotalTime = json['session_total_time'];
-    sessionDesc = json['session_desc'];
+    sessionId = json['talks'][0]['talk_id'];
+    sessionStartTime = json['talks'][0]['start'];
+    sessionTotalTime = "50 mins";
+    sessionDesc = json['talks'][0]['description'];
     track = json['track'];
-    fbUrl = json['fb_url'];
-    twitterUrl = json['twitter_url'];
-    linkedinUrl = json['linkedin_url'];
-    githubUrl = json['github_url'];
-    telegramUrl = json['telegram_url'];
-    sessionTitle = json['session_title'];
-    sessionId = json['session_id'];
-    sessionLevel = json['session_level'];
+    fbUrl = json["social"]['facebook'];
+    twitterUrl = json["social"]['twitter'];
+    linkedinUrl = json["social"]['linkedin'];
+    githubUrl = json["social"]['github'];
+    telegramUrl = json["social"]['telegram'];
+    sessionTitle = json['talks'][0]['name'];
+    sessionLevel = json['talks'][0]['level'];
   }
 
   Map<String, dynamic> toJson() {
@@ -85,7 +81,6 @@ class Speaker {
     data['speaker_name'] = this.speakerName;
     data['speaker_desc'] = this.speakerDesc;
     data['speaker_image'] = this.speakerImage;
-    data['speaker_info'] = this.speakerInfo;
     data['speaker_id'] = this.speakerId;
     data['session_start_time'] = this.sessionStartTime;
     data['session_total_time'] = this.sessionTotalTime;

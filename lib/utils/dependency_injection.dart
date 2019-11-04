@@ -1,17 +1,13 @@
 import 'package:flutter_pyday/network/index.dart';
 
-enum Flavor { MOCK, REST, FIREBASE }
-
 enum DataMode { DART, JSON }
 
 //DI
 class Injector {
   static final Injector _singleton = new Injector._internal();
-  static Flavor _flavor;
   static DataMode _dataMode;
 
-  static void configure(Flavor flavor, DataMode dataMode) {
-    _flavor = flavor;
+  static void configure(DataMode dataMode) {
     _dataMode = dataMode;
   }
 
@@ -22,15 +18,7 @@ class Injector {
   Injector._internal();
 
   IClient get currentClient {
-    switch (_flavor) {
-      case Flavor.MOCK:
-        return MockClient();
-      case Flavor.FIREBASE:
-        //* Yet to add
-        return FirebaseClient();
-      default:
-        return RestClient();
-    }
+    return RestClient();
   }
 
   DataMode get currentDataMode {

@@ -2,7 +2,11 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_pyday/home/session.dart';
 import 'package:flutter_pyday/home/speaker.dart';
 import 'package:flutter_pyday/home/team.dart';
+import 'package:flutter_pyday/home/track.dart';
 import 'package:meta/meta.dart';
+
+import 'location.dart';
+import 'sponsor.dart';
 
 @immutable
 abstract class HomeState extends Equatable {
@@ -26,14 +30,18 @@ class UnHomeState extends HomeState {
 /// Initialized
 class InHomeState extends HomeState {
   final SpeakersData speakersData;
-  final SessionsData sessionsData;
+  final TracksData sessionsData;
+  final SponsorsData sponsorsData;
   final TeamsData teamsData;
+  final LocationData locationData;
 
   InHomeState(
       {@required this.speakersData,
       @required this.sessionsData,
-      @required this.teamsData})
-      : super([speakersData, sessionsData, teamsData]);
+      @required this.sponsorsData,
+      @required this.teamsData,
+      @required this.locationData})
+      : super([speakersData, sessionsData, sponsorsData, teamsData, locationData]);
   @override
   String toString() => 'InHomeState';
 
@@ -42,6 +50,7 @@ class InHomeState extends HomeState {
     return InHomeState(
         speakersData: this.speakersData,
         sessionsData: this.sessionsData,
+        sponsorsData: this.sponsorsData,
         teamsData: this.teamsData);
   }
 }

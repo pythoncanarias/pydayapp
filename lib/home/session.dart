@@ -1,28 +1,22 @@
+import 'package:flutter_pyday/home/speaker.dart';
+
 class SessionsData {
   List<Session> sessions;
 
   SessionsData({this.sessions});
 
-  SessionsData.fromJson(Map<String, dynamic> json) {
-    if (json['sessions'] != null) {
+  SessionsData.fromJson(List<dynamic> json) {
       sessions = new List<Session>();
-      json['sessions'].forEach((v) {
-        sessions.add(Session.fromJson(v));
+      json.forEach((v) {
+        if (v["name"] != "Descanso" && v["speakers"][0]['name'] != "Alex" && v["speakers"][0]['surname'] != "Samarín") {
+          sessions.add(Session.fromJson(v));
+        }
       });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.sessions != null) {
-      data['sessions'] = this.sessions.map((v) => v.toJson()).toList();
-    }
-    return data;
   }
 }
 
 class Session {
-  String sessionId;
+  int sessionId;
   String sessionTitle;
   String sessionDesc;
   String sessionImage;
@@ -30,13 +24,12 @@ class Session {
   String sessionTotalTime;
   String sessionLink;
   String speakerName;
-  String speakerDesc;
   String speakerImage;
-  String speakerInfo;
-  String speakerId;
+  int speakerId;
   String track;
+  dynamic speaker;
 
-  Session({
+  Session(
     this.sessionId,
     this.sessionTitle,
     this.sessionDesc,
@@ -45,27 +38,43 @@ class Session {
     this.sessionTotalTime,
     this.sessionLink,
     this.speakerName,
-    this.speakerDesc,
     this.speakerImage,
-    this.speakerInfo,
     this.speakerId,
     this.track,
-  });
+    this.speaker
+  );
 
   Session.fromJson(Map<String, dynamic> json) {
-    sessionId = json['session_id'];
-    sessionTitle = json['session_title'];
-    sessionDesc = json['session_desc'];
+    sessionId = json['talk_id'];
+    sessionTitle = json['name'];
+    sessionDesc = json['description'];
     sessionImage = json['session_image'];
-    sessionStartTime = json['session_start_time'];
-    sessionTotalTime = json['session_total_time'];
+    sessionStartTime = json['start'];
+    sessionTotalTime = "50 mins";
     sessionLink = json['session_link'];
-    speakerName = json['speaker_name'];
-    speakerDesc = json['speaker_desc'];
-    speakerImage = json['speaker_image'];
-    speakerInfo = json['speaker_info'];
-    speakerId = json['speaker_id'];
-    track = json['track'];
+    if (json["name"] == "Descanso") {
+      speakerName = "";
+      speakerImage = "";
+      speakerId = 0;
+      track = json['track'];
+      speaker = {};
+    } else {
+      speakerName = "${json["speakers"][0]['name']} ${json["speakers"][0]['surname']}";
+      speakerImage = json["speakers"][0]['photo'];
+      speakerId = json["speakers"][0]['speaker_id'];
+      track = json['track'];
+      speaker = Speaker(
+          speakerName: speakerName,
+          speakerDesc: json["bio"],
+          speakerId: speakerId,
+          speakerImage: speakerImage,
+          sessionDesc: sessionDesc,
+          sessionId: sessionId,
+          sessionLevel: "Intermedio",
+          sessionStartTime: sessionStartTime,
+          sessionTitle: sessionTitle,
+          sessionTotalTime: "50 mins" );
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -78,9 +87,7 @@ class Session {
     data['session_total_time'] = this.sessionTotalTime;
     data['session_link'] = this.sessionLink;
     data['speaker_name'] = this.speakerName;
-    data['speaker_desc'] = this.speakerDesc;
     data['speaker_image'] = this.speakerImage;
-    data['speaker_info'] = this.speakerInfo;
     data['speaker_id'] = this.speakerId;
     data['track'] = this.track;
     return data;

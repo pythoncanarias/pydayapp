@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pyday/home/speaker.dart';
 import 'package:flutter_pyday/universal/dev_scaffold.dart';
 import 'package:flutter_pyday/utils/tools.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../utils/pyday.dart';
 
 class SessionDetail extends StatelessWidget {
   static const String routeName = "/session_detail";
@@ -62,7 +65,7 @@ class SessionDetail extends StatelessWidget {
 
   Widget socialActions(context) {
     List<Widget> widgets = this.socialButtons();
-    if (this.socialButtons().length > 0) {
+    if (widgets.length > 0) {
       return FittedBox(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -86,12 +89,10 @@ class SessionDetail extends StatelessWidget {
             children: <Widget>[
               Center(
                 child: Hero(
-                  tag: session.speakerImage,
+                  tag: session.speakerId,
                   child: CircleAvatar(
                     radius: 100.0,
-                    backgroundImage: Image.asset(session.speakerImage,
-                            width: 100, height: 100)
-                        .image,
+                    backgroundImage: CachedNetworkImageProvider("${Pyday.baseUrl}${session.speakerImage}"),
                   ),
                 ),
               ),

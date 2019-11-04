@@ -1,10 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pyday/agenda/session_detail.dart';
 import 'package:flutter_pyday/home/speaker.dart';
+import 'package:flutter_pyday/utils/pyday.dart';
 import 'package:flutter_pyday/utils/tools.dart';
 
+import '../home/session.dart';
+
 class SessionList extends StatelessWidget {
-  final List<Speaker> allSessions;
+  final List<Session> allSessions;
 
   const SessionList({Key key, @required this.allSessions}) : super(key: key);
   @override
@@ -22,7 +26,7 @@ class SessionList extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => SessionDetail(
-                    session: allSessions[i],
+                    session: allSessions[i].speaker,
                   ),
                 ),
               );
@@ -47,10 +51,10 @@ class SessionList extends StatelessWidget {
               ),
             ),
             leading: Hero(
-              tag: allSessions[i].speakerImage,
+              tag: allSessions[i].speakerId,
               child: CircleAvatar(
                 radius: 30,
-                backgroundImage: AssetImage(allSessions[i].speakerImage),
+                backgroundImage: CachedNetworkImageProvider("${Pyday.baseUrl}${allSessions[i].speakerImage}"),
               ),
             ),
             title: RichText(
