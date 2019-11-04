@@ -1,7 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_pyday/agenda/mobile_screen.dart';
 import 'package:flutter_pyday/home/index.dart';
-import 'package:flutter_pyday/home/track.dart';
 import 'package:flutter_pyday/universal/dev_scaffold.dart';
 import 'package:flutter_pyday/utils/tools.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -26,10 +27,16 @@ class AgendaPage extends StatelessWidget {
           ),
           isScrollable: false,
           tabs: tracks.map((track) {
+            var icon;
+            if (track.name == 'Tatooine') {
+              icon = FontAwesomeIcons.rebel;
+            } else {
+              icon = FontAwesomeIcons.jedi;
+            }
             return Tab(
               child: Text(track.name),
               icon: Icon(
-                FontAwesomeIcons.cloud,
+                icon,
                 size: 12,
               ),
             );

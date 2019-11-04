@@ -106,10 +106,7 @@ class HomeFront extends StatelessWidget {
             IconButton(
               icon: Icon(FontAwesomeIcons.telegram),
               onPressed: () async {
-                var emailUrl =
-                    '''mailto:info@pythoncanarias.es?subject=Support Needed For PyDay app App&body={Name: Alejandro M. Alberto},Email: alex.23p10@gmail.com}''';
-                var out = Uri.encodeFull(emailUrl);
-                await _launchURL(out);
+                await _launchURL("https://t.me/joinchat/AJ7pmT-X0xZVPgWDIzGA-A");
               },
             ),
           ],

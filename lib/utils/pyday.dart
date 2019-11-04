@@ -70,7 +70,4 @@ class Pyday {
   static const String photoPref = "photoPref";
   static const String isAdminPref = "isAdminPref";
   static const String darkModePref = "darkModePref";
-
-  //* JSON URLS
-  static const String teamsAssetJson = "assets/json/staff.json";
 }
